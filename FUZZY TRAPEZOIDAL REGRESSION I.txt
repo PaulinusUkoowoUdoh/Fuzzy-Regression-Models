@@ -1,0 +1,77 @@
+# Data Sample A[1]
+
+mydata<- read.table(file.choose(),header = TRUE)
+
+
+dataset <- data.frame(mydata)
+n = nrow(dataset)
+N = 3*n
+x <- dataset[,1:4]
+y <- dataset[,5:8]
+x_lc <- dataset[,1]
+x_rc <- dataset[,2]
+x_ls <- dataset[,3]
+x_rs <- dataset[,4]
+y_lc <- dataset[,5]
+y_rc <- dataset[,6]
+y_ls <- dataset[,7]
+y_rs <- dataset[,8]
+xstar = NA
+ystar = NA
+
+for (i in 1:n) {
+xstar[i] <- sum(x_ls[i],0.5*x_lc[i],0.5*x_rc[i],x_rs[i])
+ystar[i] <- sum(y_ls[i],0.5*y_lc[i],0.5*y_rc[i],y_rs[i])
+}
+
+ysum =sum(ystar)
+xsum=sum(xstar)
+y_bar=ysum/N
+x_bar=xsum/N
+data_star <- cbind(xstar,ystar)
+newdata <- data.frame(data_star)
+
+num = NA
+den = NA
+for (i in 1:n) {
+num[i] <- sum((x_ls[i]*y_ls[i]),(0.5*x_lc[i]*y_lc[i]),(0.5*x_rc[i]*y_rc[i]),(x_rs[i]*y_rs[i]))
+den[i] <- sum((x_ls[i]**2),(0.5*x_lc[i]**2),(0.5*x_rc[i]**2),(x_rs[i]**2))
+}
+Num <- sum(num)
+Den <- sum(den)
+beta1 = (Num-N*x_bar*y_bar)/(Den-(N*(x_bar**2)))
+beta0 = y_bar - beta1*x_bar
+plot(ystar~xstar)
+abline(beta0,beta1)
+betas = rbind(beta0,beta1)
+k <- ncol(newdata)
+xnew <- cbind(rep(1,n),xstar)
+yhat <- xnew%*%betas
+e <- ystar-yhat
+ssr <- (t(e)%*%e)
+#sst = NA
+#Rsqd = NA
+#AdjRsqd = NA
+sst <- sum((yhat-y_bar)**2)
+Rsqd <- 1 - ssr/sst
+AdjRsqd <- 1-((1-Rsqd)*((n-1)/(n-k)))
+s2 <- ssr/(n-k)
+Vb <- s2[1,1]*solve((t(xnew)%*%xnew))
+se <- sqrt(diag(Vb))
+tval <- betas/se
+ttols <- data.frame(col1=c("constant","x1"),col2=betas,col3=se,col4=tval)
+colnames(ttols)<- c("variable","estimate","s.e.","t")
+ttols
+MSE <- mean(e^2)
+RMSE <- sqrt(MSE)
+ME <- mean(e)
+MAE <- mean(abs(e))
+MPE<- (1/n)*sum((ystar-yhat)/ystar)*100
+MAPE <- (1/n)*sum(abs(ystar-yhat)/abs(ystar))*100
+scale_f <- mean(yhat)
+scaled_error <- e/(sum(abs(ystar-scale_f)))
+MASE <- mean(abs(scaled_error))
+output2 <-data.frame(col1=MSE,col2=RMSE,col3=ME,col4=MAE,col5=MPE,col6=MAPE,col7=MASE, col8=Rsqd, col9=AdjRsqd)
+colnames(output2)<-c("MSE","RMSE","ME","MAE","MPE","MAPE","MASE","Rsquared","Adj-Rsquared")
+output2
+

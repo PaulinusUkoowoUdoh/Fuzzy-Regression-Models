@@ -1,0 +1,182 @@
+
+# DEFUZZIFIED SYMMETRIC TRAPEZOIDAL DATASET 
+# nsymtra50.txt
+
+mydata<- read.table(file.choose(),header = TRUE)
+
+dataset <- data.frame(mydata)
+ls_data <- dataset[2:17,]
+c_data <- dataset[18:33,]
+rs_data <- dataset[34:49,]
+model1 <- lm(Y~X,data=ls_data)
+model2 <- lm(Y~X,data=c_data)
+model3 <- lm(Y~X,data=rs_data) 
+model1$coef
+model2$coef
+model3$coef
+plot(dataset)#NOT RUN
+abline(a=3.7451316,b=0.8361388)
+abline(a=4.0369326,b=0.7694772)
+abline(a=4.2874405,b=0.7290301)
+
+
+
+
+==================================================================================
+
+
+
+# DEFUZZIFIED SYMMETRIC TRIANGULAR DATASET 
+# nsymtri50.txt
+
+mydata<- read.table(file.choose(),header = TRUE)
+
+dataset <- data.frame(mydata)
+ls_data <- dataset[2:17,]
+c_data <- dataset[18:33,]
+rs_data <- dataset[34:49,]
+model1 <- lm(Y~X,data=ls_data)
+model2 <- lm(Y~X,data=c_data)
+model3 <- lm(Y~X,data=rs_data) 
+model1$coef
+model2$coef
+model3$coef
+abline(a=-0.4570911,b=0.8058871)
+abline(a=-0.01673443,b=0.62386731)
+abline(a=-0.6458599,b=0.9068506)
+
+
+===================================================================================
+
+# SYMMETRIC TRIANGULAR DATASET b2
+
+
+mydata<- read.table(file.choose(),header = TRUE)
+dataset <- data.frame(mydata)
+n=nrow(dataset)
+#triangle to crisp
+ls_x <- dataset[,1]
+c_x <- dataset[,2]
+rs_x <- dataset[,3]
+ls_y <- dataset[,4]
+c_y <- dataset[,5]
+rs_y <- dataset[,6]
+xstar = NA
+ystar = NA
+for (i in 1:n) {
+xstar[i] <- sum(ls_x[i],c_x[i],rs_x[i])/3
+ystar[i] <- sum(ls_y[i],c_y[i],rs_y[i])/3
+}
+dataset2 <- cbind(xstar,ystar)
+dataset3 <- data.frame(dataset2)
+plot(dataset3)
+=====================================================================================
+
+
+# SYMMETRIC TRAPEZOIDAL DATASET A[1]
+
+
+mydata<- read.table(file.choose(),header = FALSE)
+
+dataset <- data.frame(mydata)
+x_ls <- dataset[,1]
+x_lc <- dataset[,2]
+x_rc <- dataset[,3]
+x_rs <- dataset[,4]
+y_ls <- dataset[,5]
+y_lc <- dataset[,6]
+y_rc <- dataset[,7]
+y_rs <- dataset[,8]
+data1<-data.frame(ls_x,ls_y)
+data2<-data.frame(lc_x,lc_y)
+data3<-data.frame(rc_x,rc_y)
+data4<-data.frame(rs_x,rs_y)
+model1 <- lm(y_ls~x_ls,data=data1)
+model2 <- lm(y_lc~x_lc,data=data2)
+model3 <- lm(y_rc~x_rc,data=data3)
+model4 <-  lm(y_rs~x_rs,data=data4)
+model1$coef
+model2$coef
+model3$coef
+model4$coef
+(Intercept)        ls_x 
+  abline(a=3.5287500, b=0.9103123) 
+> model2$coef
+(Intercept)        lc_x 
+  abline(a=3.7950000, b=0.8338235) 
+> model3$coef
+(Intercept)        rc_x 
+  abline(a=4.0975000, b=0.7458556) 
+> model4$coef
+(Intercept)        rs_x 
+  abline(a=4.4550000, b=0.6947603) 
+
+n = nrow(dataset)
+N = 3*n
+#centroid method for trapezoidal tranforms to crisp
+
+xstar = NA
+ystar = NA
+for (i in 1:n) {
+xstar[i] <- (((x_rc[i]**2)+(x_rs[i]**2)+(x_rc[i]*x_rs[i]))-((x_ls[i]**2)+(x_lc[i]**2)+(x_ls[i]*x_lc[i])))/3*((x_rc[i]+x_rs[i])-(x_lc[i]+x_ls[i]))
+ystar[i] <- (((y_rc[i]**2)+(y_rs[i]**2)+(y_rc[i]*y_rs[i]))-((y_ls[i]**2)+(y_lc[i]**2)+(y_ls[i]*y_lc[i])))/3*((y_rc[i]+y_rs[i])-(y_lc[i]+y_ls[i]))
+}
+data1 <- cbind(xstar,ystar)
+data2 <- data.frame(data1)
+plot(data2)
+===============================================================================================
+# ASYMMETRIC TRAPEZOIDAL DATASET A[2]
+
+
+mydata<- read.table(file.choose(),header = FALSE)
+
+dataset <- data.frame(mydata)
+#plot(dataset)
+x_ls <- dataset[,3]
+x_lc <- dataset[,1]
+x_rc <- dataset[,2]
+x_rs <- dataset[,4]
+y_ls <- dataset[,7]
+y_lc <- dataset[,5]
+y_rc <- dataset[,6]
+y_rs <- dataset[,8]
+data1<-data.frame(x_ls,y_ls)
+data2<-data.frame(x_lc,y_lc)
+data3<-data.frame(x_rc,y_rc)
+data4<-data.frame(x_rs,y_rs)
+model1 <- lm(y_ls~x_ls,data=data1)
+model2 <- lm(y_lc~x_lc,data=data2)
+model3 <- lm(y_rc~x_rc,data=data3)
+model4 <-  lm(y_rs~x_rs,data=data4)
+model1$coef
+model2$coef
+model3$coef
+model4$coef
+
+Intercept)        x_ls 
+  abline(a=0.5074958, b=0.3617103) 
+> model2$coef
+(Intercept)        x_lc 
+ abline(a=-0.1371964,   b=0.3220090) 
+> model3$coef
+(Intercept)        x_rc 
+ abline(a= -1.986787,    b=1.996792) 
+> model4$coef
+(Intercept)        x_rs 
+  abline(a=1.6868620,   b=0.1346795) 
+
+n = nrow(dataset)
+N = 3*n
+#centroid method for trapezoidal tranforms to crisp
+
+xstar = NA
+ystar = NA
+for (i in 1:n) {
+xstar[i] <- (((x_rc[i]**2)+(x_rs[i]**2)+(x_rc[i]*x_rs[i]))-((x_ls[i]**2)+(x_lc[i]**2)+(x_ls[i]*x_lc[i])))/3*((x_rc[i]+x_rs[i])-(x_lc[i]+x_ls[i]))
+ystar[i] <- (((y_rc[i]**2)+(y_rs[i]**2)+(y_rc[i]*y_rs[i]))-((y_ls[i]**2)+(y_lc[i]**2)+(y_ls[i]*y_lc[i])))/3*((y_rc[i]+y_rs[i])-(y_lc[i]+y_ls[i]))
+#xstar[i] <- sum(x_ls[i], x_lc[i], x_rc[i], x_rs[i])/n
+#ystar[i] <- sum(y_ls[i], y_lc[i], y_rc[i], y_rs[i])/n
+}
+data1 <- cbind(xstar,ystar)
+data2 <- data.frame(data1)
+plot(data2)

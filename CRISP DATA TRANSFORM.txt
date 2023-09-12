@@ -1,0 +1,63 @@
+# Sample Data A[2]
+
+mydata<- read.table(file.choose(),header = TRUE)
+
+dataset <- data.frame(mydata)
+n = nrow(dataset)
+N = 3*n
+#centroid method for trapezoidal tranforms to crisp
+x <- dataset[,1:4]
+y <- dataset[,5:8]
+x_lc <- dataset[,1]
+x_rc <- dataset[,2]
+x_ls <- dataset[,3]
+x_rs <- dataset[,4]
+y_lc <- dataset[,5]
+y_rc <- dataset[,6]
+y_ls <- dataset[,7]
+y_rs <- dataset[,8]
+xstar = NA
+ystar = NA
+for (i in 1:n) {
+xstar[i] <- (((x_rc[i]**2)+(x_rs[i]**2)+(x_rc[i]*x_rs[i]))-((x_ls[i]**2)+(x_lc[i]**2)+(x_ls[i]*x_lc[i])))/3*((x_rc[i]+x_rs[i])-(x_lc[i]+x_ls[i]))
+ystar[i] <- (((y_rc[i]**2)+(y_rs[i]**2)+(y_rc[i]*y_rs[i]))-((y_ls[i]**2)+(y_lc[i]**2)+(y_ls[i]*y_lc[i])))/3*((y_rc[i]+y_rs[i])-(y_lc[i]+y_ls[i]))
+}
+data1 <- cbind(xstar,ystar)
+data2 <- data.frame(data1)
+model <- lm(ystar~xstar,data=data2)
+plot(ystar~xstar)
+abline(model)
+summary(model)
+require(forecast)
+accuracy(model)
+
+=================================
+
+# Sample Data A[2]
+
+mydata<- read.table(file.choose(),header = TRUE)
+#centroid method for triangular tranforms to crisp
+x <- dataset[,1:4]
+y <- dataset[,5:8]
+x_lc <- dataset[,1]
+x_rc <- dataset[,2]
+x_ls <- dataset[,3]
+x_rs <- dataset[,4]
+y_lc <- dataset[,5]
+y_rc <- dataset[,6]
+y_ls <- dataset[,7]
+y_rs <- dataset[,8]
+xstar = NA
+ystar = NA
+for (i in 1:n) {
+xstar[i] <- (((x_rc[i]**2)+(x_rs[i]**2)+(x_rc[i]*x_rs[i]))-((x_ls[i]**2)+(x_lc[i]**2)+(x_ls[i]*x_lc[i])))/3*((x_rc[i]+x_rs[i])-(x_lc[i]+x_ls[i]))
+ystar[i] <- (((y_rc[i]**2)+(y_rs[i]**2)+(y_rc[i]*y_rs[i]))-((y_ls[i]**2)+(y_lc[i]**2)+(y_ls[i]*y_lc[i])))/3*((y_rc[i]+y_rs[i])-(y_lc[i]+y_ls[i]))
+}
+data1 <- cbind(xstar,ystar)
+data2 <- data.frame(data1)
+model <- lm(ystar~xstar,data=data2)
+plot(ystar~xstar)
+abline(model)
+summary(model)
+require(forecast)
+accuracy(model)

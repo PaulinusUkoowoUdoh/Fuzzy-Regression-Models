@@ -1,0 +1,20 @@
+Source: 
+Robust Regression Analysis with LR-Type Fuzzy Input Variables and Fuzzy Output
+Variable Dan Zhang, Qiujun Lu College of Science, University of Shanghai for Science and Technology, Shanghai, China
+Journal of Data Analysis and Information Processing, 2016, 4, 64-80
+Published Online May 2016 in SciRes. http://www.scirp.org/journal/jdaip
+http://dx.doi.org/10.4236/jdaip.2016.42006  
+
+
+Sun, J.  and Lu, Q. (2017). Regression Analysis of a kind of Trapezoidal Fuzzy Numbers based 
+         on a Shape Preserving Operator. Journal of Data Analysis and Information Processing.          
+         Vol. 5, pp. 96-114 
+
+
+SAMPLE SIZES
+	DATASET A1 -     DEFUZZIFIED CRISP DATA with 16 observations
+	DATASET A2 -     DEFUZZIFIED CRISP DATA with 50 observations
+	DATASET B1  -    SYMMETRIC TRIANGULAR FUZZY DATA with 16 observations
+	DATASET B2  -    NON-SYMMETRIC TRIANGULAR FUZZY DATA with 50 observations
+	DATASET C1  -     SYMMETRIC TRAPEZOIDAL FUZZY DATA with 16 observations
+	DATASET C2  -     NON-SYMMETRIC TRAPEZOIDAL FUZZY DATA with 50 observations
